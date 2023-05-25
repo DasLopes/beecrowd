@@ -1,48 +1,52 @@
 #include <iostream>
 #include <string>
-#include <stdio.h>
-#include <stdlib.h>
 #include <iomanip>
+
 using namespace std;
 
-void clear_keyboard_buffer(void)
-{
+void buffer(void){ // função para limpar buffer na memória
     int c = 0;
     while ((c = getchar()) != '\n' && c != EOF) {}
     return;
 }
 
-int main(){
+int main (){
+    cout << fixed << setprecision(1);
 
+    // declaração de variaveis
     char letra;
-    string texto;
-    float totalPalavras = 1;
-    float letraPalavra = 0;
-    string palavra;
+    string frase, palavra;
+    int qtdPalavras = 1, cont = 0;
+    float letraNaPalavra = 0.0;
 
+    //entrada de dados
     cin >> letra;
-    int numLetra = (int)letra;
-
-    clear_keyboard_buffer();
-    getline(cin, texto);
-    int len = size(texto);
-
-    for (int i = 0; i < len; i++){
-
-        if (texto[i] != 32) palavra += texto[i];
-
-        int tam = size(palavra);
-        bool achei = false;
-
-        for (int i = 0; i < tam; i++){
-            if (palavra[i] == numLetra){
-                achei = true;
+    buffer();
+    getline(cin, frase);
+    //laço para determinar o tamanho do vetor
+    for (int i = 0; i < size(frase); i++) if (frase[i] == 32) qtdPalavras++;
+    //declação do vetor
+    string vetor[qtdPalavras];
+    //laço para inserir palavra nas posições do vetor
+    for (int i = 0; i < size(frase); i++){
+        if (frase[i] != 32) palavra += frase[i];
+        else{
+            vetor[cont] = palavra;
+            palavra = '\0';
+            cont++;
+        }
+    }
+    //inserindo a última palavra da frase no vetor
+    vetor[cont] = palavra;
+    //laço para verificar se a letra escolhida pelo usuário consta em alguma palavra da frase
+    for (int i = 0; i < qtdPalavras; i++){
+        palavra = vetor[i];
+        for (int i = 0; i < size(palavra); i++){
+            if (palavra[i] == (int)letra){
+                letraNaPalavra++;
+                break;
             }
         }
-        if (achei) letraPalavra++;
-        palavra = '\0';
-        if (texto[i] == 32) totalPalavras++;
     }
-    float porc = 100 * letraPalavra / totalPalavras;
-    cout << setprecision(3) << porc << endl;
+    cout << (100 * letraNaPalavra / qtdPalavras) << endl;
 }
