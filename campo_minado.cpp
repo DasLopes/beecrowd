@@ -71,8 +71,6 @@ void menu(){
         else if (num == 3) break;
         else printf ("Opção inválida, digite novamente.\n");
     }
-
-
     switch (num){
         case 1:
             campo_2(num);
