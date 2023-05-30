@@ -38,7 +38,7 @@ void bemVindo(){
     getline(cin, jogador.nome);
     cout << "Por favor! Poderia inseria seu ano de nascimento: ";
     cin >> jogador.idade;
-    cout << endl;
+    system("clear");
     cout << jogador.nome << "! É um prazer te conhecer. ";
     cout << "Neste ano você você completa " << anoAtual() - jogador.idade << "." << endl;
     cout << "Campo minado é um popular jogo de computador para um jogador." << endl;
@@ -49,15 +49,12 @@ void campo_1(){
     cout << "\nEste campo possuí 25 posições.\n" << endl;
     for (int l = 0; l < 5; l++){
         for (int c = 0; c < 5; c++){
-            cout << "X\t";
+            cout << "*\t";
         }
         cout << endl;
     }
 }
-int campo_2(int n){
-    return 0;
-}
-void menu(){
+int menu(){
     printf("\n\tPrograma menu.\n");
     printf("Escolha uma opção abaixo:\n");
     printf("1 - Fácil com 5 bombas;\n");
@@ -66,27 +63,38 @@ void menu(){
     int num;
     while(true){
         cin >> num;
-        if (num == 1) break;
-        else if(num == 2) break;
-        else if (num == 3) break;
-        else printf ("Opção inválida, digite novamente.\n");
+        if (num == 1){
+            num = 5;
+            break;
+        }else if(num == 2){
+            num = 10;
+            break;
+        }else if (num == 3){
+            num = 24;
+            break;
+        }else printf ("Opção inválida, digite novamente.\n");
     }
-    switch (num){
-        case 1:
-            campo_2(num);
-            break;
-        case 2:
-            campo_2(num);
-            break;
-        case 3:
-            campo_2(num);
-            break;
-      }
+    system("clear");
+    return num;
 }
 int main (){
-    int num;
+    string matriz[5][5];
     texto();
     bemVindo();
     campo_1();
-    menu();
+    int len = menu();
+    printf("\nlen = %i\n", len);
+    int n = 0;
+    for (int i = 0; i < len; i++){
+        n += (i * i) + (rand() * rand());
+        srand(n);
+        matriz[rand() % 4][rand() % 4] = "X";
+    }
+    for (int l = 0; l < 5; l++){
+        for (int c = 0; c < 5; c++){
+            cout << matriz[l][c] << "\t";
+        }
+        cout << endl;
+    }
+
 }
