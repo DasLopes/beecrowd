@@ -6,7 +6,6 @@
 #include <stdlib.h>
 using namespace std;
 
-
 void buffer(void){ // função para limpar buffer na memória
     int c = 0;
     while ((c = getchar()) != '\n' && c != EOF) {}
@@ -24,7 +23,6 @@ puts("                           :_;                                    ");
 }
 struct dados{
     string nome;
-    int idade;
 };
 int anoAtual(){
     time_t t;
@@ -39,18 +37,14 @@ void bemVindo(){
     cout << endl;
     cout << "Insira seu nome para começar: ";
     getline(cin, jogador.nome);
-    cout << "Por favor! Poderia inseria seu ano de nascimento: ";
-    cin >> jogador.idade;
     system("clear");
-    cout << jogador.nome << "! É um prazer te conhecer. ";
-    cout << "Neste ano você você completa " << anoAtual() - jogador.idade << "." << endl;
-    cout << "Campo minado é um popular jogo de computador para um jogador." << endl;
+    cout << jogador.nome << " O Campo Minado é um popular jogo de computador para um jogador." << endl;
     cout << "Foi inventado por Robert Donner em 1989 e tem como objectivo" << endl;
     cout << "revelar um campo de minas sem que alguma seja detonada." << endl;
 }
 
 void menu(){
-    printf("\n\tPrograma menu.\n\n");
+    printf("\n\tQual é seu nível?\n\n");
     printf("1 - Fácil com 5 bombas;\n");
     printf("2 - Médio com 10 bombas;\n");
     printf("3 - Difícil com 24 bombas.\n\n");
@@ -60,21 +54,23 @@ void menu(){
 
 int main (){
 setlocale(LC_ALL, "Portuguese");
+srand((int)time(NULL));
 
 int l = 5, c = 5;
 int x, y;
 int cont = 5;
 int mapa[l][c];
 int jogo[c][l];
-int numBombas = 0;
-int opcao;
-srand((int)time(NULL));
+
+
 
 
     texto();
     bemVindo();
     menu();
 
+    int numBombas;
+    int opcao;
     do{
         printf("Escolha uma opção abaixo: ");
         cin >> opcao;
@@ -90,67 +86,110 @@ srand((int)time(NULL));
         }
     }while(true);
 
+
+
     for (int i = 0; i < l; i++){
         for (int j = 0; j < c; j++){
             jogo[i][j] = 0;
         }
     }
 
+    int bomba = 99;
     for (int i = 0; i < numBombas; i++){
         do{
             x = rand() % l;
             y = rand() % c;
-        }while(mapa[x][y] == 13);
-        mapa[x][y] = 13;
+        }while(mapa[x][y] == bomba);
+        mapa[x][y] = bomba;
     }
-    numBombas = 0;
+
+
+    for (int i = 0; i < l; i++){
+        for (int j = 0; j < c; j++){
+            if (mapa[i][j] != bomba) mapa[i][j] = 0;
+        }
+    }
+
+    int bombas = 0;
     for (int i = 0; i < l; i++){
         for (int j = 0; j < c; j++){
             if (mapa[i][j] == 0){
-                if (mapa[i-1][j-1] == 13) numBombas++;
-                if (mapa[i-1][j] == 13) numBombas++;
-                if (mapa[i-1][j+1] == 13) numBombas++;
-                if (mapa[i][j-1] == 13) numBombas++;
-                if (mapa[i][j+1] == 13) numBombas++;
-                if (mapa[i+1][j-1] == 13) numBombas++;
-                if (mapa[i+1][j] == 13) numBombas++;
-                if (mapa[i+1][j+1] == 13) numBombas++;
-                jogo[i][j] = numBombas;
-                numBombas = 0;
+                if (mapa[i-1][j-1] == bomba) bombas++;
+                if (mapa[i-1][j] == bomba) bombas++;
+                if (mapa[i-1][j+1] == bomba) bombas++;
+                if (mapa[i][j-1] == bomba) bombas++;
+                if (mapa[i][j+1] == bomba) bombas++;
+                if (mapa[i+1][j-1] == bomba) bombas++;
+                if (mapa[i+1][j] == bomba) bombas++;
+                if (mapa[i+1][j+1] == bomba) bombas++;
+                mapa[i][j] = bombas;
+                bombas = 0;
             }
         }
     }
 
+cout << "teste de mesa" << endl;
+for (int i = 0; i < l; i++){
+    for (int j = 0; j < c; j++){
+        cout << mapa[i][j] << " ";
+    }
+    cout << endl;
+}
+cout << "teste de mesa" << endl;
+
+    int jogadas = 25 - numBombas;
     do{
+
+        cout << endl << "Insira sua jogada!" << endl << endl;
+
+        for (int i = 0; i < l; i++){
+             for (int j = 0; j < c; j++){
+                cout << jogo[i][j] << "\t";
+            }
+            cout << endl;
+        }
+
         do{
             cout << "Digite o número da linha: ";
             cin >> x;
-        }while(x < 0 || x > 4);
+        }while(x < 1 || x > 5);
         do{
             cout << "Digite o número da coluna: ";
             cin >> y;
-        }while(y < 0 || y > 4);
+        }while(y < 1 || y > 5);
 
-        if (mapa[x][y] == 13){
-            if (cont == 5) cout << "Poxa! Na primeira tentativa!" << endl;
-            cout << "Fim de jogo" << endl;
-            break;
-        }else{
+        jogadas--;
+
+        x -= 1;
+        y -= 1;
+        jogo[x][y] = mapa[x][y];
+
+        if (jogadas == 0){
+            cout << endl << "PARABÉNS!" << endl << endl;
             for (int i = 0; i < l; i++){
                 for (int j = 0; j < c; j++){
-                    if(i == x && j == y){
-                        cout << jogo[i][j] << "\t";
-                    }else{
-                        cout << "?" << "\t";
-                    }
+                    cout << mapa[i][j] << "\t";
                 }
                 cout << endl;
             }
-        }
-        cont--;
-        if (cont == 0){
-            cout << "Você ganhou" << endl;
             break;
+        }else if(jogo[x][y] == bomba){
+            cout << endl << "GAME OVER" << endl << endl;
+                for (int i = 0; i < l; i++){
+                    for (int j = 0; j < c; j++){
+                        cout << mapa[i][j] << "\t";
+                    }
+                    cout << endl;
+                }
+            break;
+        }else{
+            cout << endl << "PARABÉNS! PRÓXIMA JOGADA" << endl << endl;
+            for (int i = 0; i < l; i++){
+                for (int j = 0; j < c; j++){
+                    cout << jogo[i][j] << "\t";
+                }
+                cout << endl;
+            }
         }
     }while(true);
 }
