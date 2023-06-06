@@ -18,15 +18,13 @@ puts("                           :_;                                    ");
 }
 struct dados{
     string nome;
+    int pontos;
 };
 
 void bemVindo(){
-    dados jogador;
-    cout << endl;
-    cout << "Insira seu nome para começar: ";
-    getline(cin, jogador.nome);
+    cout << "\n";
     system("cls");
-    cout << jogador.nome << "! O Campo Minado é um popular jogo de computador\npara um jogador.";
+    cout << "O Campo Minado é um popular jogo de computador\npara um jogador. ";
     cout << "Foi inventado por Robert Donner\nem 1989 e tem como objectivo ";
     cout << "revelar um campo de\nminas sem que alguma seja detonada.\n";
     cout << "O número 99 representa uma bomba.\n";
@@ -57,6 +55,10 @@ int jogo[c][l];
     }
 
     texto();
+    dados jogador;
+    jogador.pontos = 0;
+    cout << "Insira seu nome para começar: ";
+    getline(cin, jogador.nome);
     bemVindo();
     menu();
 
@@ -86,73 +88,274 @@ int jogo[c][l];
         mapa[x][y] = bomba;
     }
 
-    int bombas = 0;
+    int nb = 0;
     for (int i = 0; i < l; i++){
         for (int j = 0; j < c; j++){
             if (mapa[i][j] == 0){
-                if (mapa[i-1][j-1] == bomba) bombas++;
-                if (mapa[i-1][j] == bomba) bombas++;
-                if (mapa[i-1][j+1] == bomba) bombas++;
-                if (mapa[i][j-1] == bomba) bombas++;
-                if (mapa[i][j+1] == bomba) bombas++;
-                if (mapa[i+1][j-1] == bomba) bombas++;
-                if (mapa[i+1][j] == bomba) bombas++;
-                if (mapa[i+1][j+1] == bomba) bombas++;
-                mapa[i][j] = bombas;
-                bombas = 0;
+                if (i == 0 && j == 0){
+                    for (int lin = 0; lin <= 1; lin++){
+                        for (int col = 0; col <= 1; col++){
+                            if (mapa[lin][col] == bomba) nb++;
+                        }
+                    }
+                    mapa[i][j] = nb;
+                    nb = 0;
+                }else if (i == 1 && j == 0){
+                    for (int lin = 0; lin <= 2; lin++){
+                        for (int col = 0; col <= 1; col++){
+                            if (mapa[lin][col] == bomba) nb++;
+                        }
+                    }
+                    mapa[i][j] = nb;
+                    nb = 0;
+                }else if (i == 2 && j == 0){
+                        for (int lin = 1; lin <= 3; lin++){
+                            for (int col = 0; col <= 1; col++){
+                                if (mapa[lin][col] == bomba) nb++;
+                            }
+                        }
+                        mapa[i][j] = nb;
+                        nb = 0;
+                    }else if (i == 3 && j == 0){
+                        for (int lin = 2; lin <= 4; lin++){
+                            for (int col = 0; col <= 1; col++){
+                                if (mapa[lin][col] == bomba) nb++;
+                            }
+                        }
+                        mapa[i][j] = nb;
+                        nb = 0;
+                    }else if (i == 4 && j == 0){
+                        for (int lin = 3; lin <= 4; lin++){
+                            for (int col = 0; col <= 1; col++){
+                                if (mapa[lin][col] == bomba) nb++;
+                            }
+                        }
+                        mapa[i][j] = nb;
+                        nb = 0;
+                    }else if (i == 0 && j == 1){
+                        for (int lin = 0; lin <= 1; lin++){
+                            for (int col = 0; col <= 2; col++){
+                                if (mapa[lin][col] == bomba) nb++;
+                            }
+                        }
+                        mapa[i][j] = nb;
+                        nb = 0;
+                    }else if (i == 1 & j == 1){
+                        for (int lin = 0; lin <= 2; lin++){
+                            for (int col = 0; col <= 2; col++){
+                                if (mapa[lin][col] == bomba) nb++;
+                            }
+                        }
+                        mapa[i][j] = nb;
+                        nb = 0;
+                    }else if (i == 2 && j == 1){
+                        for (int lin = 1; lin <= 3; lin++){
+                            for (int col = 0; col <= 2; col++){
+                                if (mapa[lin][col] == bomba) nb++;
+                            }
+                        }
+                        mapa[i][j] = nb;
+                        nb = 0;
+                    }else if (i == 3 && j == 1){
+                        for (int lin = 2; lin <= 4; lin++){
+                            for (int col = 0; col <= 2; col++){
+                                if (mapa[lin][col] == bomba) nb++;
+                            }
+                        }
+                        mapa[i][j] = nb;
+                        nb = 0;
+                    }else if (i == 4 && j == 1){
+                        for (int lin = 3; lin <= 4; lin++){
+                            for (int col = 0; col <= 2; col++){
+                                if (mapa[lin][col] == bomba) nb++;
+                            }
+                        }
+                        mapa[i][j] = nb;
+                        nb = 0;
+                    }else if (i == 0 && j == 2){
+                        for (int lin = 0; lin <= 1; lin++){
+                            for (int col = 1; col <= 3; col++){
+                                if (mapa[lin][col] == bomba) nb++;
+                            }
+                        }
+                        mapa[i][j] = nb;
+                        nb = 0;
+                    }else if (i == 1 && j == 2){
+                        for (int lin = 0; lin <= 2; lin++){
+                            for (int col = 1; col <= 3; col++){
+                                if (mapa[lin][col] == bomba) nb++;
+                            }
+                        }
+                        mapa[i][j] = nb;
+                        nb = 0;
+                    }else if (i == 2 && j == 2){
+                        for (int lin = 1; lin <= 3; lin++){
+                            for (int col = 1; col <= 3; col++){
+                                if (mapa[lin][col] == bomba) nb++;
+                            }
+                        }
+                        mapa[i][j] = nb;
+                        nb = 0;
+                    }else if (i == 3 && j == 2){
+                        for (int lin = 2; lin <= 4; lin++){
+                            for (int col = 1; col <= 3; col++){
+                                if (mapa[lin][col] == bomba) nb++;
+                            }
+                        }
+                        mapa[i][j] = nb;
+                        nb = 0;
+                    }else if (i == 4 && j == 2){
+                        for (int lin = 3; lin <= 4; lin++){
+                            for (int col = 1; col <= 3; col++){
+                                if (mapa[lin][col] == bomba) nb++;
+                            }
+                        }
+                        mapa[i][j] = nb;
+                        nb = 0;
+                    }else if (i == 0 && j == 3){
+                        for (int lin = 0; lin <= 1; lin++){
+                            for (int col = 2; col <= 4; col++){
+                                if (mapa[lin][col] == bomba) nb++;
+                            }
+                        }
+                        mapa[i][j] = nb;
+                        nb = 0;
+                    }else if (i == 1 && j == 3){
+                        for (int lin = 0; lin <= 2; lin++){
+                            for (int col = 2; col <= 4; col++){
+                                if (mapa[lin][col] == bomba) nb++;
+                            }
+                        }
+                        mapa[i][j] = nb;
+                        nb = 0;
+                    }else if (i == 2 && j == 3){
+                        for (int lin = 1; lin <= 3; lin++){
+                            for (int col = 2; col <= 4; col++){
+                                if (mapa[lin][col] == bomba) nb++;
+                            }
+                        }
+                        mapa[i][j] = nb;
+                        nb = 0;
+                    }else if (i == 3 && j == 3){
+                        for (int lin = 2; lin <= 4; lin++){
+                            for (int col = 2; col <= 4; col++){
+                                if (mapa[lin][col] == bomba) nb++;
+                            }
+                        }
+                        mapa[i][j] = nb;
+                        nb = 0;
+                    }else if (i == 4 && j == 3){
+                        for (int lin = 3; lin <= 4; lin++){
+                            for (int col = 2; col <= 4; col++){
+                                if (mapa[lin][col] == bomba) nb++;
+                            }
+                        }
+                        mapa[i][j] = nb;
+                        nb = 0;
+                    }else  if (i == 0 && j == 4){
+                        for (int lin = 0; lin <= 1; lin++){
+                            for (int col = 3; col <= 4; col++){
+                                if (mapa[lin][col] == bomba) nb++;
+                            }
+                        }
+                        mapa[i][j] = nb;
+                        nb = 0;
+                    }else if (i == 1 && j == 4){
+                        for (int lin = 0; lin <= 2; lin++){
+                            for (int col = 3; col <= 4; col++){
+                                if (mapa[lin][col] == bomba) nb++;
+                            }
+                        }
+                        mapa[i][j] = nb;
+                        nb = 0;
+                    }else if (i == 2 && j == 4){
+                        for (int lin = 1; lin <= 3; lin++){
+                            for (int col = 3; col <= 4; col++){
+                                if (mapa[lin][col] == bomba) nb++;
+                            }
+                        }
+                        mapa[i][j] = nb;
+                        nb = 0;
+                    }else if (i == 3 && j == 4){
+                        for (int lin = 2; lin <= 4; lin++){
+                            for (int col = 3; col <= 4; col++){
+                                if (mapa[lin][col] == bomba) nb++;
+                            }
+                        }
+                        mapa[i][j] = nb;
+                        nb = 0;
+                    }else if (i == 4 && j == 4){
+                        for (int lin = 3; lin <= 4; lin++){
+                            for (int col = 3; col <= 4; col++){
+                                if (mapa[lin][col] == bomba) nb++;
+                            }
+                        }
+                        mapa[i][j] = nb;
+                        nb = 0;
+                    }
             }
         }
     }
-
     int jogadas = 25 - numBombas;
     do{
         system("cls");
-        cout << endl << "========== SUA JOGADA! ==========" << endl << endl;
+        cout << "\n============== SUA JOGADA! ==============\n\n";
+        cout << "\t1\t2\t3\t4\t5\n\n\n";
         for (int i = 0; i < l; i++){
+            cout << i+1 << "\t";
             for (int j = 0; j < c; j++){
                 cout << jogo[i][j] << "\t";
             }
-            cout << endl << endl;
+            cout << "\n\n\n";
         }
         do{
            do{
                 cout << "Digite o número da linha: ";
                 cin >> x;
-            }while(x < 1 || x > 5);
+                x -= 1;
+            }while(x < 0 || x > 4);
             do{
                 cout << "Digite o número da coluna: ";
                 cin >> y;
-            }while(y < 1 || y > 5);
-        }while(jogo[x][y] != 0);
+                y -= 1;
+            }while(y < 0 || y > 4);
+            if (jogo[x][y] == 0) break;
+            else cout << "\nJOGADA INVALIDA: DIGITE NÚMEROS DIFERENTES\n\n";
+        }while(true);
 
-        jogadas--;
-
-        x -= 1;
-        y -= 1;
         jogo[x][y] = mapa[x][y];
 
-
-        if(jogo[x][y] == bomba){
+        if(mapa[x][y] == bomba){
             system("cls");
-            cout << endl << "=========== GAME OVER ===========" << endl << endl;
-                for (int i = 0; i < l; i++){
-                    for (int j = 0; j < c; j++){
-                        cout << mapa[i][j] << "\t";
-                    }
-                    cout << endl << endl;
-                }
-            break;
-        }
-
-        if (jogadas == 0 && jogo[x][y] != bomba){
-            system("cls");
-            cout << endl << "=========== PARABÉNS! ===========" << endl << endl;
+            cout << "\n============== GAME OVER ================\n\n";
+            cout << "\t1\t2\t3\t4\t5\n\n\n";
             for (int i = 0; i < l; i++){
+                cout << i+1 << "\t";
                 for (int j = 0; j < c; j++){
                     cout << mapa[i][j] << "\t";
                 }
-                cout << endl << endl;
+                cout << "\n\n";
             }
+            cout << jogador.nome << "! Obrigado por jogar meu jogo.\n";
+            cout << "Nesta partida você ganhou " << jogador.pontos << " pontos.\n\n";
+            break;
+        }
+        jogador.pontos++;
+        jogadas--;
+        if (jogadas == 0){
+            if (numBombas == 24) jogador.pontos = 1000;
+            system("cls");
+            cout << "\n============== PARABÉNS! ================\n\n";
+            cout << "\t1\t2\t3\t4\t5\n\n\n";
+            for (int i = 0; i < l; i++){
+                cout << i+1 << "\t";
+                for (int j = 0; j < c; j++){
+                    cout << mapa[i][j] << "\t";
+                }
+                cout << "\n\n";
+            }
+            cout << jogador.nome << "! Obrigado por jogar meu jogo.\n";
+            cout << "Nesta partida você ganhou " << jogador.pontos << " pontos.\n\n";
             break;
         }
     }while(true);
