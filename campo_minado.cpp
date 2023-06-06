@@ -45,12 +45,14 @@ int l = 5, c = 5;
 int x, y;
 int cont = 5;
 int mapa[l][c];
-int jogo[c][l];
+int jogo[l][c];
+int validacao [l][c];
 
     for (int i = 0; i < l; i++){
         for (int j = 0; j < c; j++){
             jogo[i][j] = 0;
             mapa[i][j] = 0;
+            validacao[i][j] = 0;
         }
     }
 
@@ -319,8 +321,10 @@ int jogo[c][l];
                 cin >> y;
                 y -= 1;
             }while(y < 0 || y > 4);
-            if (jogo[x][y] == 0) break;
-            else cout << "\nJOGADA INVALIDA: DIGITE NÚMEROS DIFERENTES\n\n";
+            if (validacao[x][y] == 0){
+                validacao[x][y] = 1;
+                break;
+            }else cout << "\nJOGADA INVALIDA: NÚMEROS REPETIDOS\n\n";
         }while(true);
 
         jogo[x][y] = mapa[x][y];
@@ -329,6 +333,8 @@ int jogo[c][l];
             system("cls");
             cout << "\n============== GAME OVER ================\n\n";
             cout << "\t1\t2\t3\t4\t5\n\n\n";
+            if (numBombas == 10) jogador.pontos *= 10;
+            else if (numBombas == 5) jogador.pontos *= 5;
             for (int i = 0; i < l; i++){
                 cout << i+1 << "\t";
                 for (int j = 0; j < c; j++){
@@ -344,6 +350,8 @@ int jogo[c][l];
         jogadas--;
         if (jogadas == 0){
             if (numBombas == 24) jogador.pontos = 1000;
+            else if (numBombas == 10) jogador.pontos *= 10;
+            else if (numBombas == 5) jogador.pontos *= 5;
             system("cls");
             cout << "\n============== PARABÉNS! ================\n\n";
             cout << "\t1\t2\t3\t4\t5\n\n\n";
